@@ -43,15 +43,19 @@ def create(response):
 
         if form.is_valid():
             n = form.cleaned_data["name"]
-            t = ToDoList(name=n)
+            t = ToDoList(name=n, user=response.user)
             t.save()
 
-        return HttpResponseRedirect("/%i" % t.id)
+            return HttpResponseRedirect("/%i" % t.id)
     else:
-        form = CreateNewListForm()
+        if response.user.is_authenticated:
+            form = CreateNewListForm()
+        else:
+            return HttpResponseRedirect("/login/")
 
     return render(response, "task/create.html", {"form": form})
 
 
-
+def view(response):
+    return render(response, "task/view.html", {})
 

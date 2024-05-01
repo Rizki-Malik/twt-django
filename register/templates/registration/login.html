@@ -1,0 +1,10 @@
+{% extends 'task/base.html' %} {% block title %}Login Page{% endblock %}
+
+{% block content %}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-success">Login</button>
+        <p>Don't Have an Account? Create one <a href="/register/">here</a></p>
+    </form>
+{% endblock %}
